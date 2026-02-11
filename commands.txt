@@ -19,3 +19,57 @@ cat .gitignore
 git add .gitignore && git commit -m "Add .gitignore file"
 git checkout main
 git merge feature-update
+
+#Bonus questions
+
+git remote -v
+git remote add upstream https://github.com/danilofreire/datasci350-quiz01.git
+git remote -v
+git push origin main
+
+#Steps on the gitbub website now
+# On GitHub: my fork -> Pull requests -> New pull request
+# Base repository: danilofreire/datasci350-quiz01, base: main
+# Head repository: Lucas-Huang-EM/datasci350-quiz01, compare: main
+# Create pull request
+
+
+
+#2
+git checkout main
+git rebase -i HEAD~2
+
+# Change the second line from "pick" to "squash", save and exit.
+# Save the combined commit message, save and exit.
+
+git log --oneline -5
+git push --force-with-lease origin main
+
+
+#Bonus 3
+
+mkdir -p .git/hooks
+nano .git/hooks/pre-commit
+
+# Script into nano
+# !/bin/bash
+# # Block commits unless README.md is staged as changed
+#
+# staged_files=$(git diff --cached --name-only)
+#
+# echo "$staged_files" | grep -q "^README\.md$"
+# if [ $? -ne 0 ]; then
+#   echo "ERROR: README.md must be updated (and staged) before committing."
+#   echo "Hint: edit README.md, then run: git add README.md"
+#   exit 1
+# fi
+#
+# exit 0
+
+chmod +x .git/hooks/pre-commit
+
+mkdir -p hooks
+cp .git/hooks/pre-commit hooks/pre-commit
+git add hooks/pre-commit
+git commit -m "Add pre-commit hook script (documentation)"
+git push origin main
